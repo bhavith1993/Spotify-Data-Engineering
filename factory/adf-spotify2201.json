@@ -1,0 +1,15 @@
+{
+	"name": "adf-spotify2201",
+	"properties": {
+		"trustModeClaimForMi": {
+			"value": "Enabled",
+			"editable": true
+		}
+	},
+	"location": "westus2",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "d1076a58-b812-49cc-916e-a74b2222307a",
+		"tenantId": "21ec4bfc-a56a-4248-b721-5640d403af22"
+	}
+}
