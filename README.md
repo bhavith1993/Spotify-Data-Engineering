@@ -215,20 +215,22 @@ ADLS Gen2 (storagespotify2201)
 
 ## 📈 Engineering Decisions
 
-| Decision | Rationale |
+| Requirement | Rationale |
 |----------|-----------|
-| Auto Loader over batch reads | Efficiently handles new file arrival without full directory scans |
-| `trigger(availableNow=True)` | Processes all backlog then terminates — cost-efficient for scheduled runs |
-| Explicit checkpoint paths on ADLS | Required by Databricks Serverless — no implicit temp locations allowed |
-| Jinja2 for Gold SQL | Eliminates repetitive JOIN code — adding a new dimension = one config entry |
-| DAB for deployment | Reproducible, version-controlled infrastructure across dev and prod |
-| Reusable transformation class | Single source of truth for common PySpark operations across all layers |
-
+| Incremental Processing | ADF incremental_ingestion pipeline with CDC watermark pattern (Lookup → Set Variable → Copy) |
+| Stream Processing | PySpark Structured Streaming with Auto Loader (cloudFiles) for Bronze → Silver |
+| Metadata Driven Code| Jinja2 config-driven dynamic SQL for Gold layer joins |
+| Git CI/CD Standards| Databricks Asset Bundles (DAB) + GitHub branches + PR workflow |
+| Backfilling Enabled | trigger(availableNow=True) processes all backlog on each run |
+| Custom Utilities | utils/transformation.py reusable class (dropColumns, etc.) |
+| Star Schema | FactStream + DimUser + DimTrack + DimArtist in Silver layer |
+| Dynamic Code | Jinja2 templating + parametrized DAB targets (dev/prod) |
+| SQL Database | Azure SQL as source, ADF Copy Activity ingests to Bronze |
 ---
 
 ## 👤 Author
 
-**Sneha Pujani**
+**Bhavith Shetty**
 
 [![GitHub](https://img.shields.io/badge/GitHub-bhavith1993-181717?style=flat&logo=github)](https://github.com/bhavith1993)
 
