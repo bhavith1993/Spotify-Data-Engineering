@@ -26,7 +26,21 @@ The pipeline processes raw transactional Spotify data — user streams, track pl
 
 ### Pipeline Flow
 
-![Architecture Diagram](./Architecture/Spotify_drawio.png)
+```
+SQL Database
+     │
+     ▼
+[Azure Data Factory] ──► Bronze (Raw Parquet)
+                              │
+                              ▼
+                    [Spark Structured Streaming] ──► Silver (Star Schema Delta)
+                                                           │
+                                                           ▼
+                                               [Delta Live Tables] ──► Gold (Aggregated Delta)
+                                                                              │
+                                                                              ▼
+                                                                   [Databricks SQL Warehouse]
+```
 
 ## 💡 Key Highlights
 
