@@ -22,7 +22,7 @@ The pipeline processes raw transactional Spotify data — user streams, track pl
 
 ## 🏗️ Architecture
 
-![Architecture Diagram](./Spotify_drawio.png)
+![Architecture Diagram](./Architecture/Spotify.drawio.png)
 
 ### Pipeline Flow
 
